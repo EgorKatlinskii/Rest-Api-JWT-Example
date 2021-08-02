@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Data
+@Entity
 @Table(name="User")
 public class User {
 
