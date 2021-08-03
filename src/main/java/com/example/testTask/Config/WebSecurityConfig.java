@@ -14,7 +14,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user")
                 .password("{noop}123")
                 .roles("VIEWER")
-        .and()
+                .and()
                 .withUser("admin")
                 .password("{noop}456")
                 .roles("ADMIN");
@@ -24,10 +24,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/appSensor").hasRole("ADMIN")
-                .antMatchers("/logins","/logout").permitAll()
-                .antMatchers("/sensorTable").hasAnyRole("VIEWER","ADMIN")
-                .and().formLogin();
+                    .antMatchers("/logins").permitAll()
+                    .antMatchers("/appSensor").hasRole("ADMIN")
+                    .antMatchers("/sensorTable").hasAnyRole("VIEWER", "ADMIN")
+                .and()
+                    .formLogin()
+                /*.loginPage("/login") - собственная форма*/ // (5)
+                    .permitAll()
+                .and()
+                    .logout() // (6)
+                    .permitAll()
+                .and()
+                    .httpBasic();
     }
 
 }
