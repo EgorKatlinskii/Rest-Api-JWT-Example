@@ -6,12 +6,19 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Data
 @Table(name = "Sensor")
 public class Sensor {
+
+    @Id
+    @NotNull
+    @Column(name = "id")
+    private Integer id;
+
 
     @NotNull
     @Column(name = "name")
