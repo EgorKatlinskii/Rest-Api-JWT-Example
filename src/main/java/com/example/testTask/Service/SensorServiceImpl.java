@@ -30,12 +30,21 @@ public class SensorServiceImpl implements SensorService {
     }
 
     @Override
-    public Sensor editSensor(Sensor sensor) {
-        return null;
+    public boolean editSensor(Sensor editSensor,int id) {
+        if(sensorRepository.existsById(id)){
+            editSensor.setId(id);
+            sensorRepository.save(editSensor);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void deleteSensor() {
-
+    public boolean deleteSensor(int id) {
+        if(sensorRepository.existsById(id)){
+            sensorRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

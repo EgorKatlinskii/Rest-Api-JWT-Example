@@ -10,8 +10,8 @@ public interface SensorService {
 
     List<Sensor> fingBySensorsByText(String name);
 
-    Sensor editSensor(Sensor sensor);
+    boolean editSensor(Sensor sensor,int id);
 
-    void deleteSensor();
+    boolean deleteSensor(int id);
 
 }
