@@ -21,8 +21,9 @@ public class SensorController {
     @PostMapping("/addSensor")
     @ResponseBody
     public ResponseEntity<?> createSensor(@RequestBody Sensor sensor){
-        return sensorService.addSensor(sensor) !=null
-                ? (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK)
+        Sensor newSensor = sensorService.addSensor(sensor);
+        return newSensor !=null
+                ?  ResponseEntity.status(HttpStatus.OK).body(newSensor)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -40,17 +41,18 @@ public class SensorController {
     @PostMapping("/editSensor/sensor")
     @ResponseBody
     public ResponseEntity<?> editSensor(@RequestBody Sensor sensor) {
+        System.out.println(sensor.getId());
         return sensorService.editSensor(sensor,sensor.getId())
-                ? (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK)
+                ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
-    @PostMapping("/deleteSennor/{id}")
+    @DeleteMapping(value = "/deleteSensor/{id}", consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public ResponseEntity<?> deleteSensor(@PathVariable int id){
+    public ResponseEntity<?> deleteSensor(@PathVariable(name = "id") int id){
         return sensorService.deleteSensor(id)
-                ? (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK)
+                ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

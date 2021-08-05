@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "login")
     private String login;

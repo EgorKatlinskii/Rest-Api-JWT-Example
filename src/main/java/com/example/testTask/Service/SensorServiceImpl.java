@@ -43,11 +43,14 @@ public class SensorServiceImpl implements SensorService {
 
     @Override
     public boolean editSensor(Sensor editSensor,int id) {
+        System.out.println("!!!!");
         if(sensorRepository.existsById(id)){
             editSensor.setId(id);
             sensorRepository.save(editSensor);
+
             return true;
         }
+
         return false;
     }
 
@@ -59,4 +62,6 @@ public class SensorServiceImpl implements SensorService {
         }
         return false;
     }
+
+
 }

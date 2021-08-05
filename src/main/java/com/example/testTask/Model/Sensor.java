@@ -16,6 +16,7 @@ import javax.validation.constraints.Size;
 public class Sensor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "id")
     private Integer id;
