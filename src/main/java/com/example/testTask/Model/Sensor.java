@@ -2,23 +2,23 @@ package com.example.testTask.Model;
 
 import com.example.testTask.Enums.SensorType;
 import com.example.testTask.Enums.SensorUnit;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Data
-@Table(name = "Sensor")
+@Entity
+@Table(name = "sensor")
 public class Sensor {
 
     @Id
     @NotNull
     @Column(name = "id")
     private Integer id;
-
 
     @NotNull
     @Column(name = "name")
@@ -31,19 +31,21 @@ public class Sensor {
     private String model;
 
     @NotNull
-    @Column(name = "rangeFrom")
+    @Column(name = "range_from")
     private int rangeFrom;
 
     @NotNull
-    @Column(name = "rangeTo")
+    @Column(name = "range_to")
     private int rangeTo;
 
     @NotNull
-    @Column(name = "sensorType")
+    @Column(name = "sensor_type")
+    @Enumerated(EnumType.ORDINAL)
     private SensorType sensorType;
 
     @NotNull
-    @Column(name = "sensorUnit")
+    @Column(name = "sensor_unit")
+    @Enumerated(EnumType.ORDINAL)
     private SensorUnit sensorUnit;
 
     @NotNull

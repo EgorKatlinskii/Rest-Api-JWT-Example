@@ -1,4 +1,4 @@
-package com.example.testTask.Config;
+/*package com.example.testTask.Config;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    /*@Override
+    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("user")
@@ -20,7 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN");
 
     }
-*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -28,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/sensorTable").hasAnyRole("VIEWER", "ADMIN")
                 .and()
                     .formLogin()
-                /*.loginPage("/login") - собственная форма*/ // (5)
+                *//*.loginPage("/login") - собственная форма*//* // (5)
                     .permitAll()
                 .and()
                     .logout() // (6)
@@ -37,4 +36,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .httpBasic();
     }
 
-}
+}*/

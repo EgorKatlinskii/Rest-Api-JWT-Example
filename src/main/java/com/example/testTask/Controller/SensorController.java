@@ -1,11 +1,8 @@
 package com.example.testTask.Controller;
 
-
 import com.example.testTask.Model.Sensor;
 import com.example.testTask.Service.SensorServiceImpl;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +16,16 @@ import java.util.List;
 public class SensorController {
 
     SensorServiceImpl sensorService;
+
+
+    @PostMapping("/addSensor")
+    @ResponseBody
+    public ResponseEntity<?> createSensor(@RequestBody Sensor sensor){
+        return sensorService.addSensor(sensor) !=null
+                ? (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
     @GetMapping("/getAll")
     @ResponseBody
@@ -39,18 +46,13 @@ public class SensorController {
 
     }
 
-    @PostMapping("/deleteSennor")
+    @PostMapping("/deleteSennor/{id}")
     @ResponseBody
-    public ResponseEntity<?> deleteSensor(@RequestBody SensorRequest sensorRequest){
-        return sensorService.deleteSensor(sensorRequest.getId())
+    public ResponseEntity<?> deleteSensor(@PathVariable int id){
+        return sensorService.deleteSensor(id)
                 ? (ResponseEntity<?>) ResponseEntity.status(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
 }
 
-@Data
-class SensorRequest{
-    private int id;
-}

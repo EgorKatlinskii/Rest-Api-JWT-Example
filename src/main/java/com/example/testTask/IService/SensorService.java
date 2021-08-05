@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface SensorService {
 
-    List<Sensor> getAllSensors();
+    Sensor addSensor(Sensor sensor) ;
 
-    List<Sensor> fingBySensorsByText(String name);
+    List<Sensor> getAllSensors() ;
+
+  /*  List<Sensor> fingBySensorsByText(String name);*/
 
     boolean editSensor(Sensor sensor,int id);
 
