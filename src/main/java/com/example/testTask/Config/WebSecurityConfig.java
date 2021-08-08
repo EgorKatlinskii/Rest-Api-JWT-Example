@@ -1,45 +1,45 @@
 package com.example.testTask.Config;
 
+import com.example.testTask.Security.JWT.JWTConfigurer;
+import com.example.testTask.Security.JWT.JWTTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 
-@EnableWebSecurity
+
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    /*@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}123")
-                .roles("VIEWER")
-                .and()
-                .withUser("admin")
-                .password("{noop}456")
-                .roles("ADMIN");
 
+    private final JWTTokenProvider jwtTokenProvider;
+
+    @Autowired
+    public WebSecurityConfig(JWTTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
     }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                    .antMatchers("/appSensor").hasRole("ADMIN")
-                    .antMatchers("/sensorTable").hasAnyRole("VIEWER", "ADMIN")
+        http
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .formLogin()
-                .loginPage("/login") - собственная форма // (5)
-                    .permitAll()
+                .authorizeRequests()
+                .antMatchers("/registry","/login").permitAll()
+                .antMatchers("/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
                 .and()
-                    .logout() // (6)
-                    .permitAll()
-                .and()
-                    .httpBasic();
-    }*/
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+                .apply(new JWTConfigurer(jwtTokenProvider));
     }
 }

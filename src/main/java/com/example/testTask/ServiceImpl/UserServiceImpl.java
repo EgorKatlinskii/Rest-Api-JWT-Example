@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registry(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        /*!!!!!*/
         user.setRole(UserRole.ROLE_USER);
         User registeredUser = userRepository.save(user);
         log.info("In register - user: {} successfully registered", registeredUser);
@@ -42,10 +41,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByLogin(String userName) {
-        User userResult = userRepository.findByLogin(userName);
+    public User findByLogin(String login) {
+        User userResult = userRepository.findByLogin(login);
         if(userResult != null){
-            log.info("In findByUsername - user: {} found by username: {}", userResult, userName);
+            log.info("In findByLogin - user: {} found by username: {}", userResult, login);
             return userResult;
         }
         return null;

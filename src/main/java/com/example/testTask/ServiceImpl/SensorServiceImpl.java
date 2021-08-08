@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class SensorServiceImpl implements SensorService {
 
-    /*!!!*/
+
     private final SensorRepository sensorRepository;
     @Autowired
     public SensorServiceImpl(SensorRepository sensorRepository) {
