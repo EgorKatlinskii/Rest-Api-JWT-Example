@@ -1,7 +1,7 @@
 package com.example.testTask.Controller;
 
 import com.example.testTask.Model.Sensor;
-import com.example.testTask.Service.SensorServiceImpl;
+import com.example.testTask.ServiceImpl.SensorServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,9 +48,9 @@ public class SensorController {
 
     }
 
-    @DeleteMapping(value = "/deleteSensor/{id}", consumes = "application/json", produces = "application/json")
+    @RequestMapping (value = "/deleteSensor/{id}",method=RequestMethod.DELETE)
     @ResponseBody
-    public ResponseEntity<?> deleteSensor(@PathVariable(name = "id") int id){
+    public ResponseEntity<?> deleteSensor(@PathVariable("id") int id){
         return sensorService.deleteSensor(id)
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

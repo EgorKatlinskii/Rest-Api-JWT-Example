@@ -1,4 +1,4 @@
-package com.example.testTask.Service;
+package com.example.testTask.ServiceImpl;
 
 import com.example.testTask.IService.SensorService;
 import com.example.testTask.Model.Sensor;
