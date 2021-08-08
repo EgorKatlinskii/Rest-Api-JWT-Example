@@ -35,14 +35,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /*!!!!!*/
     @Override
     public User login(User user) {
         return null;
     }
 
     @Override
-    public User findByUserName(String userName) {
-        User userResult = userRepository.findByUserName(userName);
+    public User findByLogin(String userName) {
+        User userResult = userRepository.findByLogin(userName);
         if(userResult != null){
             log.info("In findByUsername - user: {} found by username: {}", userResult, userName);
             return userResult;

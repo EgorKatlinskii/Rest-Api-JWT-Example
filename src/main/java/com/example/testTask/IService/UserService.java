@@ -9,7 +9,7 @@ public interface UserService {
 
     User login(User user);
 
-    User findByUserName(String userName);
+    User findByLogin(String userName);
 
     User findById(int id);
 

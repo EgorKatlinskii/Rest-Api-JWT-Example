@@ -13,7 +13,8 @@ import java.util.List;
 @Service
 public class SensorServiceImpl implements SensorService {
 
-    SensorRepository sensorRepository;
+    /*!!!*/
+    private final SensorRepository sensorRepository;
     @Autowired
     public SensorServiceImpl(SensorRepository sensorRepository) {
         this.sensorRepository = sensorRepository;
