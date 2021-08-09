@@ -24,7 +24,7 @@ public class JWTTokenProvider {
     private String secret;
 
     @Value("${jwt.token.expired}")
-    private long validityInMilliseconds;
+    private long validityInSeconds;
 
 
     @Autowired
@@ -42,11 +42,10 @@ public class JWTTokenProvider {
 
     public String createToken(String login, UserRole role) {
 
-        Claims claims = Jwts.claims().setSubject(login).setSubject(role.name());
-       /* claims.put("roles", getRoleNames(role));*/
-
+        Claims claims = Jwts.claims().setSubject(login);
+        claims.put("role",role.name());
         Date now = new Date();
-        Date validity = new Date(now.getTime() + validityInMilliseconds);
+        Date validity = new Date(now.getTime() + validityInSeconds);
 
         return Jwts.builder()//
                 .setClaims(claims)//
@@ -58,7 +57,6 @@ public class JWTTokenProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!");
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -68,8 +66,8 @@ public class JWTTokenProvider {
 
     public String resolveToken(HttpServletRequest req) {
         String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer_")) {
-            return bearerToken.substring(7, bearerToken.length());
+        if (bearerToken != null && bearerToken.startsWith("Bearer")) {
+            return bearerToken.substring(6);
         }
         return null;
     }
@@ -88,13 +86,4 @@ public class JWTTokenProvider {
         }
     }
 
-    /*private List<String> getRoleNames(List<UserRole> userRoles) {
-        List<String> result = new ArrayList<>();
-
-        userRoles.forEach(role -> {
-            result.add(role.name());
-        });
-
-        return result;
-    }*/
 }

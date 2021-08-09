@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registry(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(UserRole.ROLE_USER);
+        user.setRole(UserRole.USER);
         User registeredUser = userRepository.save(user);
         log.info("In register - user: {} successfully registered", registeredUser);
         return registeredUser;
