@@ -14,5 +14,6 @@ CRUD -> JPA
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
 
+    boolean existsByLogin(String login);
     User findByLogin(String userName);
 }
