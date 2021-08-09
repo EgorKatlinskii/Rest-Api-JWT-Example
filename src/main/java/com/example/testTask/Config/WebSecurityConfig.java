@@ -17,6 +17,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JWTTokenProvider jwtTokenProvider;
 
+
+
     @Autowired
     public WebSecurityConfig(JWTTokenProvider jwtTokenProvider) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -36,9 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/getAll").hasRole("USER")
                 .antMatchers("/registry","/login").permitAll()
-                .antMatchers("/api/*").hasRole("USER")
-                /*.antMatchers("/*").hasAuthority("ADMIN")*/
+                .antMatchers("/*").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JWTConfigurer(jwtTokenProvider));
